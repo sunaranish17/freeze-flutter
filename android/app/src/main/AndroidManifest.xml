@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_freezed_riverpod">
+    package="io.anish.freezedflutterdemo">
    <application
         android:label="flutter_freezed_riverpod"
         android:icon="@mipmap/ic_launcher">
