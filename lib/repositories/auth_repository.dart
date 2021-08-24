@@ -10,6 +10,9 @@ abstract class BaseAuthRepository {
   Future<void> signOut();
 }
 
+final authRepositoryProvider =
+    Provider<AuthRepository>((ref) => AuthRepository(ref.read));
+
 class AuthRepository implements BaseAuthRepository {
   final Reader _read;
 
