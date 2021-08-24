@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_freezed_riverpod/controllers/auth_controller.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
@@ -18,13 +20,25 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Firebase Freezed"),
-        ),
-        body: Center(
-          child: Text("Project Run successful"),
-        ),
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends HookConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authControllerState = ref.watch(authControllerProvider);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Shopping List"),
+        leading: authControllerState != null
+            ? IconButton(
+                onPressed: () =>
+                    ref.read(authControllerProvider.notifier).signOut(),
+                icon: Icon(Icons.logout),
+              )
+            : null,
       ),
     );
   }
