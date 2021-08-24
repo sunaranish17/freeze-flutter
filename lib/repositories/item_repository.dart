@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_freezed_riverpod/extensions/firebase_firestore_extension.dart';
 import 'package:flutter_freezed_riverpod/general_providers.dart';
 import 'package:flutter_freezed_riverpod/models/item_model.dart';
 import 'package:flutter_freezed_riverpod/repositories/custom_exception.dart';
@@ -19,11 +20,8 @@ class ItemRepository implements BaseItemRepository {
   @override
   Future<List<Item>> retrieveItems({required String userId}) async {
     try {
-      final snap = await _read(firebaseFirestoreProvider)
-          .collection('lists')
-          .doc(userId)
-          .collection('userList')
-          .get();
+      final snap =
+          await _read(firebaseFirestoreProvider).usersListRef(userId).get();
       return snap.docs.map((doc) => Item.fromDocument(doc)).toList();
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message);
@@ -37,9 +35,7 @@ class ItemRepository implements BaseItemRepository {
   }) async {
     try {
       final docRef = await _read(firebaseFirestoreProvider)
-          .collection('lists')
-          .doc(userId)
-          .collection('userList')
+          .usersListRef(userId)
           .add(item.toDocument());
       return docRef.id;
     } on FirebaseException catch (e) {
@@ -51,9 +47,7 @@ class ItemRepository implements BaseItemRepository {
   Future<void> updateItem({required String userId, required Item item}) async {
     try {
       await _read(firebaseFirestoreProvider)
-          .collection('lists')
-          .doc(userId)
-          .collection('userList')
+          .usersListRef(userId)
           .doc(item.id)
           .update(item.toDocument());
     } on FirebaseException catch (e) {
@@ -68,9 +62,7 @@ class ItemRepository implements BaseItemRepository {
   }) async {
     try {
       await _read(firebaseFirestoreProvider)
-          .collection('lists')
-          .doc(userId)
-          .collection('userList')
+          .usersListRef(userId)
           .doc(itemId)
           .delete();
     } on FirebaseException catch (e) {
