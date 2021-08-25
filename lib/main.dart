@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_freezed_riverpod/components/add_item_dialog.dart';
+import 'package:flutter_freezed_riverpod/components/item_list.dart';
 import 'package:flutter_freezed_riverpod/controllers/auth_controller.dart';
+import 'package:flutter_freezed_riverpod/models/item_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
@@ -38,6 +41,11 @@ class HomeScreen extends HookConsumerWidget {
                 icon: Icon(Icons.logout),
               )
             : null,
+      ),
+      body: ItemList(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => AddItemDialog.show(context, Item.empty()),
+        child: Icon(Icons.add),
       ),
     );
   }
