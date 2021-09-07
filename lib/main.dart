@@ -1,9 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_freezed_riverpod/components/add_item_dialog.dart';
-import 'package:flutter_freezed_riverpod/components/item_list.dart';
-import 'package:flutter_freezed_riverpod/controllers/auth_controller.dart';
-import 'package:flutter_freezed_riverpod/models/item_model.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
@@ -22,30 +18,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends HookConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final authControllerState = ref.watch(authControllerProvider);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Shopping List"),
-        leading: authControllerState != null
-            ? IconButton(
-                onPressed: () =>
-                    ref.read(authControllerProvider.notifier).signOut(),
-                icon: Icon(Icons.logout),
-              )
-            : null,
-      ),
-      body: ItemList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => AddItemDialog.show(context, Item.empty()),
-        child: Icon(Icons.add),
+      home: Scaffold(
+        body: Container(
+          child: Center(
+            child: Text("Hello World!!"),
+          ),
+        ),
       ),
     );
   }
