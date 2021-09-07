@@ -6,9 +6,9 @@ import 'exceptions.dart';
 import 'todo_repository.dart';
 
 final _sampleJsonTodos = [
-  '''{"description": "Buy cat food", "id": "ef902705-b65e-49bf-b723-cdcb4bfa7327", "completed": false}''',
-  '''{"description": "Learn Riverpod", "id": "ef902705-b65e-49bf-b723-cdcb4bfa7329", "completed": true}''',
-  '''{"description": "Play games", "id": "0704c57a-6901-40db-88dc-b22269af658b", "completed": false}''',
+  '{"description": "Buy cat food", "id": "ef902705-b65e-49bf-b723-cdcb4bfa7327", "completed": false}',
+  '{"description": "Learn Riverpod", "id": "ef902705-b65e-49bf-b723-cdcb4bfa7329", "completed": true}',
+  '{"description": "Play games", "id": "0704c57a-6901-40db-88dc-b22269af658b", "completed": false}',
 ];
 
 const double errorLikelihood = 0.00;
@@ -69,11 +69,12 @@ class FakeTodoRepository implements TodoRepository {
       mockTodoStorage = [
         for (final todo in mockTodoStorage)
           if (todo.id == id)
-            Todo(
-              description: description,
-              id: todo.id,
-              completed: todo.completed,
-            )
+            // Todo(
+            //   description: description,
+            //   id: todo.id,
+            //   completed: todo.completed,
+            // )
+            todo.copyWith(description: description)
           else
             todo,
       ];
